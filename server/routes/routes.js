@@ -2,6 +2,7 @@ const middleware = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 
+const Users = require('../models/userSchema');
 
 // include middleware function b/w route and function so that middleware runs first and then the page renders
 router.get('/about', middleware, (req, res) => {
@@ -17,9 +18,37 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     console.log(req.body);
-    res.status(201).send({
-        message: req.body,
-    });
+    const { username, email, phone, work, password, cpassword } = req.body;
+
+    if (!username || !email || !phone || !work || !password || !cpassword) {
+        return res.status(422).json({ message: "please fill all fields" });
+    }
+
+    Users.findOne({ email })
+        .then((userFound) => {
+            if (userFound) {
+                return res.status(422).json({ error: 'A user already exists with same email' });
+            }
+
+            const user = new Users({ username, email, phone, work, password, cpassword });
+
+            user.save()
+                .then(() => {
+                    res.status(201).json({ message: 'user created successfully' });
+                })
+                .catch((err) => {
+                    res.status(500).json({
+                        message: 'failed to create user',
+                        error: err
+                    });
+                })
+        })
+        .catch((err) => {
+            res.status(422).json({
+                message: 'unknown error',
+                error: err
+            });
+        });
 });
 
 

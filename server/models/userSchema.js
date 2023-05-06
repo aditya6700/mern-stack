@@ -15,16 +15,6 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
-    password: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    cpassword: {
-        type: String,
-        require: true,
-        unique: true
-    },
     phone: {
         type: Number,
         require: true,
@@ -35,6 +25,16 @@ const userSchema = new mongoose.Schema({
         require: true,
         trim: true
     },
+    password: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    cpassword: {
+        type: String,
+        require: true,
+        unique: true
+    }
 });
 
 const Users = mongoose.model('User', userSchema);
