@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 mongoose.pluralize(null);
 
@@ -35,7 +36,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         unique: true
-    }
+    },
+    tokens: [{
+        token: String
+    }]
 });
 
 // this method will run everytime when a save method is called
@@ -47,7 +51,25 @@ userSchema.pre('save', async function (next) {
         this.cpassword = await bcrypt.hash(this.cpassword, 12);
     }
     next();
-})
+});
+
+
+// generating jsonwebtokens
+// creating a method in schema so that it is called from routes to create token on login
+userSchema.methods.generateJsontoken = async function () {
+    try {
+        const token = jwt.sign({ _id: this._id.toString() }, process.env.SECRET_KEY);
+        console.log(token);
+
+        // this.tokens = this.tokens.concat({token:token})
+        this.tokens = this.tokens.concat({ token });
+        await this.save(); // saving the token into the database
+        return token;
+    } 
+    catch (err) {
+        console.log('error in creating or saving the token : ',err);
+    }
+}
 
 const Users = mongoose.model('User', userSchema);
 module.exports = Users;

@@ -25,7 +25,19 @@ router.post('/login', async (req, res) => {
         if (userFound) {
             const passMatch = await bcrypt.compare(password, userFound.password);
             if (passMatch) {
-                return res.status(200).json({ message: "Login Success" });
+                
+                // call thegenerateJsontoken method from schema to create token
+                const token = userFound.generateJsontoken();
+
+                // set token to expire in 1hr
+                // Math.floor(Date.now() / 1000) + (60 * 60)
+                res.cookie('jwt', token, {
+                    expire: new Date(Date.now() + 50000),
+                    httpOnly:true
+                })
+                console.log('token in route : ', token);
+                
+                res.status(200).json({ message: "Login Success" });
             } 
             else {
                 return res.status(400).json({ error: "Invalid Credentials" });
