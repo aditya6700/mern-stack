@@ -1,6 +1,7 @@
 const middleware = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 const Users = require('../models/userSchema');
 
@@ -9,9 +10,11 @@ router.get('/about', middleware, (req, res) => {
     console.log('middleware allowed about page to render'),
     res.status(201).send('about page');
 });
+
 router.post('/login', async (req, res) => {
     console.log(req.body);
     const { email, password } = req.body;
+
     if (!email || !password) {
         return res.status(422).json({ message: "enter both email and passowrd" });
     }
@@ -19,11 +22,18 @@ router.post('/login', async (req, res) => {
     try {
         
         const userFound = await Users.findOne({ email });
-        if (!userFound || userFound.password !== password) {
-            return res.status(400).json({ message: "Invalid Credentials" });
+        if (userFound) {
+            const passMatch = await bcrypt.compare(password, userFound.password);
+            if (passMatch) {
+                return res.status(200).json({ message: "Login Success" });
+            } 
+            else {
+                return res.status(400).json({ error: "Invalid Credentials" });
+            }
         }
-
-        res.status(200).json({ message: 'login success' });
+        else {
+            return res.status(400).json({ error: "Invalid Credentials" });
+        }
 
     } catch (err) {
         res.status(422).json({
@@ -39,6 +49,9 @@ router.post('/register', async (req, res) => {
 
     if (!username || !email || !phone || !work || !password || !cpassword) {
         return res.status(422).json({ message: "please fill all fields" });
+    }
+    else if (password !== cpassword) {
+        return res.status(422).json({ message: "password and confirm password must be same" });
     }
     
     try {
