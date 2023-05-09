@@ -46,3 +46,34 @@ html{
 img{
   height: 25rem;
 }
+
+.contact_info{
+  /* height: 20vh; */
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+.contact_info img{
+  height: 1rem;
+  padding-right: 2rem;
+  padding-left: 1rem;
+}
+
+.contact_info_item{
+  width: calc(80%/3);
+  height: 5rem;
+  /* border: .2rem solid greenyellow; */
+  margin-top: 2rem;
+  box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
+  border-radius: .5rem;
+}
+
+.text_field{
+  width: 100%;
+  /* border: .5rem solid palevioletred; */
+}
+
+.contact_form_container{
+  box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
+  /* border: .2rem solid pink; */
+}

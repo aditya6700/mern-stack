@@ -31,7 +31,7 @@ export default function Register() {
                   <label htmlFor="phone">
                     <i className="zmdi zmdi-phone material-icons-name"></i>
                   </label>
-                  <input type="text" name='phone' id='phone'
+                  <input type="phone" name='phone' id='phone'
                     autoComplete='off' placeholder='phone' />
                 </div>
                 <div className="form-group">
