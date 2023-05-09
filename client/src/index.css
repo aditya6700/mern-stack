@@ -15,6 +15,7 @@ html{
   display: flex;
   flex-direction: row;
   justify-content: center;
+  box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
 }
 
 .register-form{
@@ -76,4 +77,21 @@ img{
 .contact_form_container{
   box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
   /* border: .2rem solid pink; */
+}
+
+.home{
+  height: 92vh;
+  background: rgb(159,202,223);
+  background: linear-gradient(90deg, rgba(159,202,223,1) 43%, rgba(172,241,224,1) 49%); 
+}
+.home-content{
+  height: inherit;
+}
+
+.home span {
+  text-transform: uppercase;
+}
+
+.emp-profile{
+  box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
 }

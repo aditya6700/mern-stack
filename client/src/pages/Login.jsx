@@ -9,7 +9,7 @@ export default function Login() {
       <Navbar />
       <section className="login">
         <div className="container">
-          <div className="form-content mt-5">
+          <div className="form-content mt-5 p-5">
           <div className="form-image">
               <figure>
                 <img src={login} alt="register" />

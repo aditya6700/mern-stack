@@ -9,7 +9,7 @@ export default function Register() {
       <Navbar />
       <section className="register">
         <div className="container">
-          <div className="form-content mt-5">
+          <div className="form-content mt-5 p-5">
             <div className="register-form">
               <h2 className="form-title ms-5">Sign Up</h2>
               <form action="Submit" className="userform">
