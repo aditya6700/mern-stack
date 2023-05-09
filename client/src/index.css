@@ -95,3 +95,11 @@ img{
 .emp-profile{
   box-shadow: -4px 8px 21px 13px rgba(0,0,0,0.1);
 }
+
+#notfound{
+  height: 100vh;
+}
+.notfound{
+  height: inherit;
+  /* border: 10px solid salmon; */
+}
