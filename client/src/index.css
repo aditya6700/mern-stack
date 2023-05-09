@@ -4,3 +4,45 @@ body {
   font-family: sans-serif;
   box-sizing: border-box;
 }
+
+html{
+  font-size: 62.5%s;
+}
+
+ 
+.form-content{
+  /* border: .3rem solid blue; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.register-form{
+  /* border: .3rem solid purple; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content:space-around;
+  width: 28%;
+}
+
+.login-form{
+  /* border: .5rem solid green; */
+   display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content:center;
+  width: 28%;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+ 
+img{
+  height: 25rem;
+}
