@@ -1,4 +1,4 @@
-const middleware = require('../middleware/auth');
+const authenticate = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -6,13 +6,13 @@ const bcrypt = require('bcryptjs');
 const Users = require('../models/userSchema');
 
 // include middleware function b/w route and function so that middleware runs first and then the page renders
-router.get('/about', middleware, (req, res) => {
+router.get('/about', authenticate, (req, res) => {
     console.log('middleware allowed about page to render'),
-    res.status(201).send('about page');
+    res.status(200).send(req.user);
 });
 
 router.post('/login', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -27,15 +27,16 @@ router.post('/login', async (req, res) => {
             if (passMatch) {
                 
                 // call thegenerateJsontoken method from schema to create token
-                const token = userFound.generateJsontoken();
+                const token = await userFound.generateJsontoken();
 
                 // set token to expire in 1hr
                 // Math.floor(Date.now() / 1000) + (60 * 60)
-                res.cookie('jwt', token, {
-                    expire: new Date(Date.now() + 50000),
-                    httpOnly:true
+                res.cookie('jwtoken', token, {
+                    maxAge: new Date(Date.now() + 50000),
+                    httpOnly: true,
+                    
                 })
-                console.log('token in route : ', token);
+                // console.log('token in route : ', token);
                 
                 res.status(200).json({ message: "Login Success" });
             } 

@@ -1,7 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
+import axios  from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function About() {
+
+    const navigate = useNavigate();
+
+    const renderAboutPage = async () => {
+        try {
+            
+            const res = await axios.get('api/about', {
+                withCredentials: true,
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            });
+
+            console.log(res);
+        }
+        catch (err) {
+            console.log(err.response.data);
+            navigate('/login');
+        }
+    };
+
+    useEffect(() => {
+        renderAboutPage();
+    }),[];
+    
+
+
   return (
     <>
       <Navbar />
@@ -19,10 +49,10 @@ export default function About() {
               <p className="profile-rating mt-3 mb-5">RANKINGS: <span> 1/10 </span></p>
               <ul className="nav nav-tabs" role="tablist">
                 <li className="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls='home' aria-selected="true">About</a>
+                  <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls='home' aria-selected="true">About</a>
                 </li>
                 <li className="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls='profile' aria-selected="false">Profile</a>
+                  <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls='profile' aria-selected="false">Profile</a>
                 </li>
               </ul>
             </div>

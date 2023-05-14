@@ -22,11 +22,6 @@ export default function Login() {
             if (res.status == 200) {
                 window.alert(loginData.message);
             }
-            const userIdCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
-            const userId = userIdCookie ? userIdCookie.split('=')[1] : null;
-            console.log(userIdCookie);
-            console.log(document.cookie);
-
         }
         catch (err) {
             console.log(err.response.status);
