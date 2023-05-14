@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Contact from './pages/Contact';
 import Error from './pages/Error';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 export default function App() {
   return (
