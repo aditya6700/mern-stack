@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { NavLink } from 'react-router-dom';
+import { userContext } from '../App';
 
 export default function Navbar() {
+  
+  const { state, dispatch } = useContext(userContext);
+  
+  const LoginLogout = () => {
+    if (state) {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/logout">Logout</NavLink>
+          </li>
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">Login</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/register">Register</NavLink>
+          </li>
+        </>
+      )
+    }
+  }
+   
   return (
     <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,12 +50,7 @@ export default function Navbar() {
                 <li className="nav-item">
                 <NavLink className="nav-link" to="/contact">Contact</NavLink>
                 </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="/login">Login</NavLink>
-                </li>
-                <li className="nav-item">
-                <NavLink className="nav-link" to="/register">Register</NavLink>
-                </li>
+                <LoginLogout />
             </ul>
             </div>
         </div>

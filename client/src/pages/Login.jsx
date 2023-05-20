@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from '../components/Navbar'
 import login from '../images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { userContext } from '../App';
 
 export default function Login() {
+    const { state, dispatch } = useContext(userContext);
     const navigate = useNavigate();
 
     const [creden, setCreden] = useState({
@@ -16,12 +18,19 @@ export default function Login() {
         const { email, password } = creden;
         try {
             const res = await axios.post('api/login', {
-                email, password
+                email, password 
             });
             // console.log(res);
             let loginData = res.data;
             if (res.status == 200) {
-                window.alert(loginData.message);
+                // window.alert(loginData.message);
+                console.log(loginData.message);
+
+                dispatch({
+                    type: 'USER',
+                    payload: true
+                });
+
                 navigate('/');
             }
         }

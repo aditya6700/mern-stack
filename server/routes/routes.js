@@ -103,5 +103,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.get('/logout', (req,res) => {
+    console.log("logging out");
+    res.clearCookie('jwtoken', { path: '/' });
+    res.status(200).send('user logged out');
+})
 
 module.exports = router;
