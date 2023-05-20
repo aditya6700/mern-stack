@@ -68,6 +68,8 @@ userSchema.methods.generateJsontoken = async function () {
         // this.tokens = this.tokens.concat({token:token})
         this.tokens = this.tokens.concat({ token });
         await this.save(); // saving the token into the database
+
+        console.log('token saved to database');
         return token;
     } 
     catch (err) {

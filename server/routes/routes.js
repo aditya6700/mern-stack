@@ -103,10 +103,20 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.get('/logout', (req,res) => {
-    console.log("logging out");
-    res.clearCookie('jwtoken', { path: '/' });
-    res.status(200).send('user logged out');
+router.get('/logout', async (req,res) => {
+    try {
+        console.log("logging out from all devices");
+        res.clearCookie('jwtoken', { path: '/' });
+        req.user.tokens = [];
+        await req.user.save();
+        res.status(200).send('user logged out');
+    }
+    catch (err) {
+        res.status(422).json({
+            message: 'unknown error',
+            error: err
+        });
+    }
 })
 
 module.exports = router;
