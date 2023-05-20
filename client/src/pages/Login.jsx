@@ -1,9 +1,52 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from '../components/Navbar'
 import login from '../images/login.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { userContext } from '../App';
 
 export default function Login() {
+    const { state, dispatch } = useContext(userContext);
+    const navigate = useNavigate();
+
+    const [creden, setCreden] = useState({
+        email: "", password: ""
+    });
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const { email, password } = creden;
+        try {
+            const res = await axios.post('api/login', {
+                email, password 
+            });
+            // console.log(res);
+            let loginData = res.data;
+            if (res.status == 200) {
+                // window.alert(loginData.message);
+                console.log(loginData.message);
+
+                dispatch({
+                    type: 'USER',
+                    payload: true
+                });
+
+                navigate('/');
+            }
+        }
+        catch (err) {
+            console.log(err.response.status);
+            const errorMessage = Object.values(err.response.data)[0];
+            console.log(err.response.data);
+            window.alert(errorMessage);
+        }  
+    }
+
+    const changeHandler = (event) => {
+        const { name, value } = event.target;
+        return setCreden({...creden, [name]:value})
+    }
+
   return (
     <>
       <Navbar />
@@ -17,20 +60,22 @@ export default function Login() {
             </div>
             <div className="login-form">
               <h2 className="form-title ms-5">Login</h2>
-              <form action="Submit" className="userform">
+              <form onSubmit={handleSubmit} className="userform">
                 <div className="form-group">
                   <label htmlFor="email">
                     <i className="zmdi zmdi-email material-icons-name"></i>
                   </label>
                   <input type="email" name='email' id='email'
-                    autoComplete='off' placeholder='email' />
+                    autoComplete='off' 
+                    onChange={changeHandler} placeholder='email' />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">
                     <i className="zmdi zmdi-lock material-icons-name"></i>
                   </label>
                   <input type="password" name='password' id='password'
-                    autoComplete='off' placeholder='password' />
+                    autoComplete='off' 
+                    onChange={changeHandler} placeholder='password' />
                 </div>
                 <div className="form-group form-button">
                   <input type="submit" id='login' name='login' value="Login"  />

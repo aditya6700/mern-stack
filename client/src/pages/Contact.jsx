@@ -47,15 +47,15 @@ export default function Contact() {
                   <div className="contact_form_name d-flex justify-content-between align-items-between">
                     <input type="text" id="contact_form_name"
                         className="contact_form_name input_field"
-                      placeholder="Your Name" required="true" />
+                      placeholder="Your Name" required={true} />
                     
                     <input type="email" id="contact_form_name"
                         className="contact_form_name input_field"
-                      placeholder="Your Email" required="true" />
+                      placeholder="Your Email" required={true} />
                     
                     <input type="phone" id="contact_form_name"
                         className="contact_form_name input_field"
-                        placeholder="Your Phone" required="true" />
+                        placeholder="Your Phone" required={true} />
                   </div>
                   <div className="contact_form_text mt-4">
                     <textarea className="text_field contact_form_message"

@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const routes = require('./routes/routes');
+const cookieParser = require('cookie-parser');
 
 // setting config file to make credentials secure
 dotenv.config({ path: './config.env' });
@@ -11,6 +12,9 @@ const app = express();
 
 // to parse incoming json for post req
 app.use(express.json());
+
+// to parse incoming cookie
+app.use(cookieParser());
 
 // define home route
 app.get('/', (req, res) => {
