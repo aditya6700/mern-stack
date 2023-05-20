@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import login from '../images/login.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
+    const navigate = useNavigate();
 
     const [creden, setCreden] = useState({
         email: "", password: ""
@@ -21,6 +22,7 @@ export default function Login() {
             let loginData = res.data;
             if (res.status == 200) {
                 window.alert(loginData.message);
+                navigate('/');
             }
         }
         catch (err) {

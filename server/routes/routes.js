@@ -11,6 +11,11 @@ router.get('/about', authenticate, (req, res) => {
     res.status(200).send(req.user);
 });
 
+router.get('/getdata', authenticate, (req, res) => {
+    console.log('data sent to home page'),
+    res.status(200).send(req.user);
+});
+
 router.post('/login', async (req, res) => {
     // console.log(req.body);
     const { email, password } = req.body;
@@ -32,7 +37,7 @@ router.post('/login', async (req, res) => {
                 // set token to expire in 1hr
                 // Math.floor(Date.now() / 1000) + (60 * 60)
                 res.cookie('jwtoken', token, {
-                    maxAge: new Date(Date.now() + 50000),
+                    maxAge: new Date(Date.now() + 5000),
                     httpOnly: true,
                     
                 })

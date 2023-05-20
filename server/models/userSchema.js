@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     tokens: [{
         token: String
     }]

@@ -24,7 +24,7 @@ export default function About() {
             setUserData(res.data);
         }
         catch (err) {
-            console.log(err.data);
+            console.log(err.response);
             navigate('/login');
         }
     };
@@ -86,14 +86,6 @@ export default function About() {
                 {/* <div className="ps-5 about-info"> */}
                     <div className="ps-5 tab-pane fade show active" id='home'>
                     <div className="tab-content pt-4" id='myTabContent'>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <label>User Id</label>
-                            </div>
-                            <div className="col-md-6">
-                                <p>{userData._id}</p>
-                            </div>
-                        </div>
                         <div className="row">
                             <div className="col-md-6">
                                 <label>Name</label>
